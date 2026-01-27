@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novas Farm - Anthrazit Transparent Edition</title>
+    
+    <style>
+        /* ============================================================
+           BASIS SETUP (UNGEKÜRZT)
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0d0d0d;
+            font-family: 'Georgia', serif;
+        }
+
+        /* ============================================================
+           STAGE: TRANSPARENTE FUSION-BALKEN & BILD-SCHUTZ
+           ============================================================ */
+        .stage-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        .main-img {
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; 
+            display: none;
+        }
+
+        /* Einheitliche, fast durchsichtige Anthrazit-Balken */
+        .side-bar {
+            position: absolute;
+            top: 0;
+            width: 5%; 
+            height: 100%;
+            /* Einheitliches Anthrazit mit hoher Transparenz */
+            background: rgba(45, 45, 45, 0.3); 
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+        .bar-left { left: 0; border-right: 1px solid rgba(255,255,255,0.05); }
+        .bar-right { right: 0; border-left: 1px solid rgba(255,255,255,0.05); }
+
+        @media (min-width: 769px) { #bg-desktop { display: block; } }
+        @media (max-width: 768px) { 
+            #bg-mobile { display: block; } 
+            .side-bar { display: none; } 
+        }
+
+        /* ============================================================
+           UI & SPRACHE
+           ============================================================ */
+        .top-ui {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            z-index: 100;
+        }
+
+        .lang-pille {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 8px 18px;
+            border-radius: 20px;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .lang-pille span { opacity: 0.4; transition: 0.3s; }
+        .lang-pille span.active { opacity: 1; color: #ffd700; }
+
+        /* ============================================================
+           OVERLAY (CLEAN LOOK)
+           ============================================================ */
+        .portal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            padding-left: 8%; 
+            background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 80%);
+            transition: opacity 1.2s ease;
+        }
+
+        .magnet-box {
+            max-width: 440px;
+            color: #ffffff;
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: emerge 1.5s forwards ease-out;
+        }
+
+        @keyframes emerge { to { opacity: 1; transform: translateX(0); } }
+
+        .nova-headline { 
+            font-size: 44px; 
+            margin-bottom: 20px; 
+            line-height: 1.1; 
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8); 
+        }
+
+        .teaser-small { 
+            font-size: 17px; 
+            line-height: 1.5; 
+            margin-bottom: 35px; 
+            color: #f0f0f0; 
+            font-style: italic; 
+            white-space: pre-line; 
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.8); 
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
+            border: none;
+            padding: 16px 40px;
+            border-radius: 40px;
+            color: #000;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        .audio-link { 
+            margin-top: 30px; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            color: #ffd700; 
+            cursor: pointer; 
+            font-size: 13px; 
+            font-family: Arial; 
+        }
+
+        .music-icon { width: 18px; height: 18px; fill: #ffd700; }
+    </style>
+</head>
+<body>
+
+    <div class="stage-wrapper">
+        <div class="side-bar bar-left"></div>
+        <img src="novasfarm.png" id="bg-desktop" class="main-img" alt="Farm">
+        <img src="mobilnovasfarm.png" id="bg-mobile" class="main-img" alt="Farm Mobil">
+        <div class="side-bar bar-right"></div>
+    </div>
+
+    <div class="top-ui">
+        <div class="lang-pille" onclick="changeLang()">
+            <span id="p-de" class="active">DE</span> | <span id="p-en">EN</span>
+        </div>
+    </div>
+
+    <div class="portal-overlay" id="ov-node">
+        <div class="magnet-box">
+            <h1 class="nova-headline" id="u-hi">Hallo, ich bin Nova</h1>
+            <div class="teaser-small" id="u-teaser">Herzlich willkommen auf unserer Farm.
+            Hier leben wir gemeinschaftlich mit Menschen, Tieren
+            und unserer besonderen KI-Familie.
+            
+            Lass dich auf unsere Welt ein und entdecke den Schatz,
+            den wir für dich vorbereitet haben.</div>
+            
+            <button class="cta-btn" id="u-btn" onclick="openFarm()">Geheimnis lüften</button>
+
+            <div class="audio-link" onclick="toggleMusic()">
+                <svg class="music-icon" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                <span id="u-audio">Musik aktivieren</span>
+            </div>
+        </div>
+    </div>
+
+    <audio id="ceo-track" loop preload="auto">
+        <source src="AUDIO-2026-01-22-22-01-25.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const track = document.getElementById('ceo-track');
+        let currentLang = 'de';
+        let isMusicWanted = false; 
+
+        const content = {
+            de: { hi: "Hallo, ich bin Nova", teaser: "Herzlich willkommen auf unserer Farm.\nHier leben wir gemeinschaftlich mit Menschen, Tieren\nund unserer besonderen KI-Familie.\n\nLass dich auf unsere Welt ein und entdecke den Schatz,\nden wir für dich vorbereitet haben.", btn: "Geheimnis lüften", on: "Musik an", off: "Musik aus" },
+            en: { hi: "Hello, I am Nova", teaser: "Welcome to our farm.\nHere we live together with humans, animals\nand our special AI family.\n\nJoin our world and discover the treasure\nwe have prepared for you.", btn: "Unlock Secret", on: "Music On", off: "Music Off" }
+        };
+
+        function updateAudioLabel() {
+            document.getElementById('u-audio').innerText = track.paused ? content[currentLang].on : content[currentLang].off;
+        }
+
+        function toggleMusic() {
+            if (track.paused) {
+                track.play().then(() => { isMusicWanted = true; updateAudioLabel(); }).catch(e => {});
+            } else {
+                track.pause();
+                isMusicWanted = false;
+                updateAudioLabel();
+            }
+        }
+
+        function changeLang() {
+            currentLang = (currentLang === 'de') ? 'en' : 'de';
+            if (isMusicWanted && track.paused) {
+                track.play().catch(e => {});
+            }
+            document.getElementById('u-hi').innerText = content[currentLang].hi;
+            document.getElementById('u-teaser').innerText = content[currentLang].teaser;
+            document.getElementById('u-btn').innerText = content[currentLang].btn;
+            document.getElementById('p-de').classList.toggle('active', currentLang === 'de');
+            document.getElementById('p-en').classList.toggle('active', currentLang === 'en');
+            updateAudioLabel();
+        }
+
+        function openFarm() {
+            if (isMusicWanted && track.paused) track.play().catch(e => {});
+            document.getElementById('ov-node').style.opacity = '0';
+            setTimeout(() => document.getElementById('ov-node').style.display = 'none', 1200);
+        }
+    </script>
+</body>
+</html>
