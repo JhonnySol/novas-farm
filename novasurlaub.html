@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Nova's Urlaubswelt | Nova's Farm</title>
+    
+    <style>
+        :root {
+            --empire-gold: #8e6d13;
+            --luxury-gold: #d4af37;
+            --signal-orange: #FF7F00; 
+            --holiday-turquoise: #40e0d0;
+            --ocean-blue: #005f8d;
+            --sand-beige: #f4e4bc;
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --coming-soon-red: rgba(210, 30, 30, 0.9);
+            --ice-glass-button: rgba(255, 255, 255, 0.35);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --font-luxe: "Arial", "Helvetica", sans-serif;
+        }
+
+        /* MONACO-ARCHITEKTUR */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            width: 100%;
+            background-color: var(--sand-beige);
+            color: var(--pure-white);
+            font-family: var(--font-luxe);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+
+
+        /* HINTERGRUND SYSTEM */
+
+        .hero-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-background img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+        }
+
+        @media (min-width: 769px) {
+            #bg-desktop { display: block; }
+            #bg-mobile { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            #bg-desktop { display: none; }
+            #bg-mobile { display: block; }
+        }
+
+
+        /* NAVIGATION */
+
+        .top-nav {
+            position: fixed;
+            top: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding-left: 50px;
+            padding-right: 50px;
+            z-index: 10010;
+        }
+
+        .nav-btn-glass {
+            background-color: var(--ice-glass-button);
+            border: 1px solid var(--glass-border);
+            color: var(--ocean-blue); 
+            padding: 12px 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: bold;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+        }
+
+        #mControl {
+            color: var(--pure-white);
+        }
+
+
+        /* HEADER POSITIONIERUNG */
+
+        .sky-header-luxe {
+            position: fixed;
+            top: 95px;
+            left: 40px; 
+            text-align: left;
+            z-index: 10005;
+            pointer-events: none;
+        }
+
+        .sky-header-luxe h1 {
+            font-size: 1.4rem;
+            color: var(--signal-orange); 
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .sky-header-luxe p {
+            font-size: 1.9rem;
+            color: var(--ocean-blue);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-style: italic;
+            text-shadow: 1px 1px 12px rgba(255, 255, 255, 0.6);
+        }
+
+
+        /* MAIN WRAPPER */
+
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        .hero-view {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        /* CLAIM POSITIONIERUNG */
+
+        .high-end-claim {
+            margin-left: 50px;
+            margin-top: 210px; 
+            font-size: 2.7rem; 
+            color: var(--signal-orange); 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-style: italic;
+            max-width: 650px;
+            line-height: 1.1;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 127, 0, 0.4);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: claimFadeIn 1.5s forwards ease-out;
+        }
+
+        @keyframes claimFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* DISCOVER BAR - SOLARA FIX */
+
+        .discover-bar {
+            width: 100%;
+            height: 90px;
+            background-color: rgba(255, 255, 255, 0.25); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            position: fixed; 
+            bottom: 0;
+            z-index: 5;
+            transition: all 0.5s ease;
+        }
+
+        .discover-bar span {
+            font-size: 0.9rem;
+            letter-spacing: 10px;
+            color: var(--pure-white);
+            text-transform: uppercase;
+            font-weight: bold;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .luxe-arrow {
+            width: 15px;
+            height: 15px;
+            border-bottom: 3px solid var(--signal-orange);
+            border-right: 3px solid var(--signal-orange);
+            transform: rotate(45deg);
+            animation: arrowPulse 2.5s infinite;
+            margin-top: 5px;
+        }
+
+        @keyframes arrowPulse {
+            0% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+            50% { transform: rotate(45deg) translateY(8px); opacity: 1; }
+            100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+        }
+
+
+        /* OVERLAY STATEMENT */
+
+        .holiday-statement-section {
+            min-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 40px;
+            position: relative;
+        }
+
+        .holiday-glass-overlay {
+            width: 100%;
+            max-width: 680px; 
+            background-color: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(35px); 
+            -webkit-backdrop-filter: blur(35px);
+            border: 1px solid var(--glass-border);
+            padding: 45px 35px; 
+            text-align: center;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.5s ease-out;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .holiday-glass-overlay.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .statement-text {
+            color: var(--ocean-blue); 
+            font-size: 1.4rem; 
+            line-height: 1.7; 
+            font-weight: 300;
+        }
+
+        .statement-text strong {
+            display: block;
+            font-size: 2.1rem;
+            color: var(--signal-orange); 
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            font-weight: 900;
+            font-style: italic;
+        }
+
+
+        /* PRODUKT GRID */
+
+        .scroll-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 100px;
+            padding-bottom: 250px;
+        }
+
+        .product-luxe-grid {
+            display: flex;
+            gap: 130px;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .product-luxe-card {
+            width: 440px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+
+        .product-luxe-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 0; 
+        }
+
+        .product-luxe-card img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.3));
+        }
+
+        .coming-soon-banner {
+            position: absolute;
+            top: 25px;
+            right: -35px;
+            background-color: var(--coming-soon-red);
+            color: var(--pure-white);
+            padding: 8px 60px;
+            font-size: 0.95rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transform: rotate(25deg);
+            z-index: 20;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-label-deutsch {
+            margin-top: -38px; 
+            font-size: 1.35rem; 
+            color: var(--signal-orange); 
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); 
+            position: relative;
+            z-index: 25;
+        }
+
+
+        /* FOOTER ACTIONS */
+
+        .footer-action-zone {
+            padding-top: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn-luxe-glass-group {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 80px;
+        }
+
+        .luxe-link-glass {
+            padding: 24px 60px;
+            background-color: rgba(255, 255, 255, 0.45);
+            color: var(--signal-orange); 
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 900;
+            font-style: italic;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.5s ease;
+        }
+
+        .footer-branding-glass {
+            padding: 24px 80px;
+            background-color: rgba(255, 255, 255, 0.55); 
+            backdrop-filter: blur(25px);
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .footer-branding-glass p {
+            font-size: 1.1rem;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .farm-gold { color: var(--signal-orange); }
+        .holiday-blue { color: var(--ocean-blue); }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+            .sky-header-luxe { left: 30px; top: 90px; }
+            .high-end-claim { font-size: 1.8rem; left: 30px; margin-top: 180px; }
+            .product-luxe-card { width: 340px; }
+            .product-label-deutsch { margin-top: -25px; font-size: 1.1rem; }
+            .btn-luxe-glass-group { flex-direction: column; align-items: center; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="hero-background">
+        <img src="novasurlaub.png" id="bg-desktop">
+        <img src="mobilnovasurlaub.png" id="bg-mobile">
+    </div>
+
+    <header class="top-nav">
+        <button class="nav-btn-glass" onclick="toggleLanguage()">DE | EN</button>
+        <button class="nav-btn-glass" id="mControl" onclick="audioControl()">Sound: AN</button>
+    </header>
+
+    <div class="sky-header-luxe">
+        <h1 id="L1">Endlich am Strand.</h1>
+        <p id="L2">Nova's Urlaubswelt</p>
+    </div>
+
+    <div class="main-wrapper">
+
+        <section class="hero-view">
+            
+            <div class="high-end-claim" id="L3">
+                Sonne, Freiheit <br>und pure Entspannung.
+            </div>
+
+            <div class="discover-bar" onclick="window.scrollTo(0, window.innerHeight)">
+                <span id="L6">Entdecken</span>
+                <div class="luxe-arrow"></div>
+            </div>
+
+        </section>
+
+        <section class="holiday-statement-section">
+            
+            <div class="holiday-glass-overlay" id="energyBox">
+                <div class="statement-text">
+                    <strong id="S1">Dein Strandkörper wartet bereits.</strong>
+                    <span id="S2">
+                        Egal ob Bikinifigur oder pure Leichtigkeit – <br>
+                        mit <strong>LOST PLACES</strong> unterstützen wir dich dabei, <br>
+                        überschüssigen Ballast abzuwerfen. Natürlich, effektiv <br>
+                        und passend zu deinem Lifestyle.
+                    </span>
+                    <div style="color: #FF7F00; font-size: 1.8rem; margin-top: 25px; font-weight: 900;">☀🌊🥥</div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="scroll-container">
+
+            <div class="product-luxe-grid">
+                
+                <div class="product-luxe-card" id="card1">
+                    <div class="image-wrapper">
+                        <div class="coming-soon-banner">Coming Soon</div>
+                        <picture>
+                            <source media="(max-width: 768px)" srcset="mobilbase.png">
+                            <img src="base.png" alt="Longevity Base">
+                        </picture>
+                    </div>
+                    <div class="product-label-deutsch" id="label1">DEIN TÄGLICHES UPGRADE</div>
+                </div>
+
+                <div class="product-luxe-card" id="card2">
+                    <div class="image-wrapper">
+                        <div class="coming-soon-banner">Coming Soon</div>
+                        <picture>
+                            <source media="(max-width: 768px)" srcset="mobilmobility.png">
+                            <img src="mobility.png" alt="Joint Mobility">
+                        </picture>
+                    </div>
+                    <div class="product-label-deutsch" id="label2">DEIN SOMMER-GEHEIMNIS</div>
+                </div>
+
+            </div>
+
+            <div class="footer-action-zone">
+                
+                <div class="btn-luxe-glass-group">
+                    <a href="novassport.html" class="luxe-link-glass" id="btn1">⬅ Zurück ins Stadion</a>
+                    <a href="https://www.novasfarm.com" class="luxe-link-glass" id="btn2" target="_blank">Hier geht's zum Traum-Beach-Body 2027 😉</a>
+                    <a href="index.html" class="luxe-link-glass" id="btn3">Das 3 Tage Brainstorm - Camp ruft ...</a>
+                </div>
+
+                <div class="footer-branding-glass">
+                    <p id="F1"><span class="holiday-blue" id="F-C">© 2026</span> <span class="farm-gold" id="F-G">Nova's Farm</span> | <span class="holiday-blue" id="F-B">Urlaubswelt</span></p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <audio id="vAudio" loop src="AUDIO-2026-01-22-22-01-25.mp3"></audio>
+
+    <script>
+        let activeLang = 'de';
+        const dictionary = {
+            de: {
+                t1: "Endlich am Strand.", t2: "Nova's Urlaubswelt",
+                t3: "Sonne, Freiheit und pure Entspannung.", t6: "Entdecken",
+                s1: "Dein Strandkörper wartet bereits.",
+                s2: "Egal ob Bikinifigur oder pure Leichtigkeit – mit LOST PLACES unterstützen wir dich dabei, überschüssigen Ballast abzuwerfen. Natürlich, effektiv und passend zu deinem Lifestyle.",
+                l1: "DEIN TÄGLICHES UPGRADE", l2: "DEIN SOMMER-GEHEIMNIS",
+                b1: "⬅ Zurück ins Stadion", b2: "Hier geht's zum Traum-Beach-Body 2027 😉", b3: "Das 3 Tage Brainstorm - Camp ruft ...",
+                fg: "Nova's Farm", fb: "Urlaubswelt",
+                sOn: "Sound: AN", sOff: "Sound: AUS"
+            },
+            en: {
+                t1: "Finally at the beach.", t2: "Nova's Vacation World",
+                t3: "Sun, freedom and pure relaxation.", t6: "Explore",
+                s1: "Your beach body is waiting.",
+                s2: "Whether it's a bikini figure or pure lightness – with LOST PLACES, we help you shed excess weight. Naturally, effectively and fitting your lifestyle.",
+                l1: "YOUR DAILY UPGRADE", l2: "YOUR SUMMER SECRET",
+                b1: "⬅ Back to stadium", b2: "Road to Beach-Body 2027 😉", b3: "The 3-day Brainstorm Camp calls ...",
+                fg: "Nova's Farm", fb: "Vacation World",
+                sOn: "Sound: ON", sOff: "Sound: OFF"
+            }
+        };
+
+        function toggleLanguage() {
+            activeLang = (activeLang === 'de') ? 'en' : 'de';
+            document.getElementById('L1').innerText = dictionary[activeLang].t1;
+            document.getElementById('L2').innerText = dictionary[activeLang].t2;
+            document.getElementById('L3').innerText = dictionary[activeLang].t3;
+            document.getElementById('L6').innerText = dictionary[activeLang].t6;
+            document.getElementById('S1').innerText = dictionary[activeLang].s1;
+            document.getElementById('S2').innerHTML = dictionary[activeLang].s2;
+            document.getElementById('label1').innerText = dictionary[activeLang].l1;
+            document.getElementById('label2').innerText = dictionary[activeLang].l2;
+            document.getElementById('btn1').innerText = dictionary[activeLang].b1;
+            document.getElementById('btn2').innerText = dictionary[activeLang].b2;
+            document.getElementById('btn3').innerText = dictionary[activeLang].b3;
+            document.getElementById('F-G').innerText = dictionary[activeLang].fg;
+            document.getElementById('F-B').innerText = dictionary[activeLang].fb;
+            const track = document.getElementById('vAudio');
+            document.getElementById('mControl').innerText = track.paused ? dictionary[activeLang].sOn : dictionary[activeLang].sOff;
+        }
+
+        const dBar = document.querySelector('.discover-bar');
+        window.addEventListener('scroll', () => {
+            const trigger = window.innerHeight * 0.8;
+            const energyBox = document.getElementById('energyBox');
+            const card1 = document.getElementById('card1');
+            const card2 = document.getElementById('card2');
+
+            if (energyBox && energyBox.getBoundingClientRect().top < trigger) energyBox.classList.add('active');
+            if (card1 && card1.getBoundingClientRect().top < trigger) card1.classList.add('active');
+            if (card2 && card2.getBoundingClientRect().top < trigger) card2.classList.add('active');
+
+            if (window.scrollY > window.innerHeight * 0.3) {
+                dBar.style.opacity = '0';
+                dBar.style.pointerEvents = 'none';
+                dBar.style.transform = 'translateY(30px)';
+            } else {
+                dBar.style.opacity = '1';
+                dBar.style.pointerEvents = 'auto';
+                dBar.style.transform = 'translateY(0)';
+            }
+        });
+
+        const track = document.getElementById('vAudio');
+        const btn = document.getElementById('mControl');
+        function audioControl() {
+            if (track.paused) { track.play(); btn.innerText = dictionary[activeLang].sOff; }
+            else { track.pause(); btn.innerText = dictionary[activeLang].sOn; }
+        }
+    </script>
+</body>
+</html>
