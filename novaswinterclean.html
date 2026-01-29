@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nova's Winterwelt | Nova's Farm</title>
+    <style>
+        :root {
+            --empire-gold: #8e6d13;
+            --luxury-gold: #d4af37;
+            --brushed-gold: #c5a059;
+            --midnight-anthracite: #1a2a3a;
+            --tartan-red: #b24d3d;
+            --heart-red: #cc0000;
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --ice-glass-button: rgba(255, 255, 255, 0.22);
+            --glass-border: rgba(212, 175, 55, 0.4);
+            --overlay-vignette: rgba(0, 0, 0, 0.4);
+            --coming-soon-red: rgba(180, 0, 0, 0.4);
+            --font-luxe: "Times New Roman", Times, serif;
+        }
+
+        /* MONACO-ARCHITEKTUR: MAXIMALE STRUKTURKLARHEIT */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            width: 100%;
+            background-color: var(--pure-black);
+            color: var(--midnight-anthracite);
+            font-family: var(--font-luxe);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+
+        /* HINTERGRUND SYSTEM */
+        .hero-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-background img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* TOP NAVIGATION */
+        .top-nav {
+            position: fixed;
+            top: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding-left: 50px;
+            padding-right: 50px;
+            z-index: 10010;
+        }
+
+        .nav-btn-glass {
+            background-color: var(--ice-glass-button);
+            border-width: 1px;
+            border-style: solid;
+            border-color: var(--glass-border);
+            color: var(--pure-black);
+            padding-top: 12px;
+            padding-bottom: 12px;
+            padding-left: 30px;
+            padding-right: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .nav-btn-glass:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            border-color: var(--luxury-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* HEADER IM HIMMEL (HELL BELASSEN) */
+        .sky-header-luxe {
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            z-index: 10005;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .sky-header-luxe.hidden {
+            opacity: 0;
+        }
+
+        .sky-header-luxe h1 {
+            font-size: 1.2rem;
+            color: var(--empire-gold);
+            text-transform: uppercase;
+            letter-spacing: 22px;
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+
+        .sky-header-luxe p {
+            font-size: 1.4rem;
+            color: var(--midnight-anthracite);
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* MAIN WRAPPER */
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        /* HERO VIEW */
+        .hero-view {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 14vh;
+            text-align: center;
+            position: relative;
+        }
+
+        .high-end-claim {
+            font-size: 2.2rem;
+            color: var(--midnight-anthracite);
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            max-width: 800px;
+            line-height: 1.5;
+            filter: drop-shadow(0 2px 4px rgba(255,255,255,0.4));
+        }
+
+        /* ENTDECKEN BAR */
+        .discover-bar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background-color: var(--overlay-vignette);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: rgba(212, 175, 55, 0.2);
+            transition: opacity 0.5s ease;
+        }
+
+        .discover-bar.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .discover-bar span {
+            font-size: 1rem;
+            letter-spacing: 12px;
+            color: var(--pure-white);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .luxe-arrow {
+            width: 24px;
+            height: 24px;
+            border-bottom-width: 3px;
+            border-bottom-style: solid;
+            border-bottom-color: var(--luxury-gold);
+            border-right-width: 3px;
+            border-right-style: solid;
+            border-right-color: var(--luxury-gold);
+            transform: rotate(45deg);
+            margin-top: 5px;
+            animation: arrowPulse 2.5s infinite;
+        }
+
+        @keyframes arrowPulse {
+            0% { transform: rotate(45deg) scale(0.9); opacity: 0.5; }
+            50% { transform: rotate(45deg) scale(1.1) translate(5px, 5px); opacity: 1; }
+            100% { transform: rotate(45deg) scale(0.9); opacity: 0.5; }
+        }
+
+        /* SCROLL SEKTION */
+        .scroll-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 150px;
+            padding-bottom: 200px;
+        }
+
+        /* STORY BLOCK */
+        .story-glass {
+            max-width: 950px;
+            padding-top: 80px;
+            padding-bottom: 80px;
+            padding-left: 80px;
+            padding-right: 80px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgba(184, 134, 11, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 2px;
+            text-align: center;
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.8s ease;
+        }
+
+        .story-glass.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-glass p {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            font-weight: 300;
+            color: var(--midnight-anthracite);
+        }
+
+        .heart-icon {
+            color: var(--heart-red);
+            font-size: 1.6rem;
+            margin-left: 5px;
+            margin-right: 5px;
+            display: inline-block;
+        }
+
+        /* PRODUKT GRID */
+        .product-luxe-grid {
+            display: flex;
+            gap: 120px;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1300px;
+            margin-bottom: 100px;
+        }
+
+        .product-luxe-card {
+            width: 330px;
+            position: relative;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: all 1.2s ease;
+        }
+
+        .product-luxe-card.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* COMING SOON */
+        .cs-stamp {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-8deg);
+            background-color: var(--coming-soon-red);
+            color: var(--pure-white);
+            padding-top: 6px;
+            padding-bottom: 6px;
+            padding-left: 30px;
+            padding-right: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            font-weight: 900;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgba(255,255,255,0.4);
+            z-index: 15;
+            text-transform: uppercase;
+        }
+
+        .product-luxe-card img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
+        }
+
+        .product-label-deutsch {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            color: var(--midnight-anthracite);
+            font-weight: bold;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* FOOTER */
+        .footer-action-zone {
+            padding-top: 100px;
+            padding-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn-luxe-glass-group {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .luxe-link-glass {
+            padding-top: 22px;
+            padding-bottom: 22px;
+            padding-left: 50px;
+            padding-right: 50px;
+            background-color: var(--ice-glass-button);
+            color: var(--pure-black);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-weight: 900;
+            font-size: 1rem;
+            border-width: 1px;
+            border-style: solid;
+            border-color: var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            min-width: 320px;
+            text-align: center;
+        }
+
+        .luxe-link-glass:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            border-color: var(--luxury-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px var(--luxury-gold);
+        }
+
+        .final-teaser-sticky {
+            color: var(--tartan-red);
+            font-size: 1.75rem;
+            font-weight: bold;
+            text-align: center;
+            max-width: 950px;
+            line-height: 1.6;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+            margin-top: 40px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.1);
+        }
+
+        footer {
+            padding-top: 80px;
+            padding-bottom: 80px;
+            text-align: center;
+            color: var(--midnight-anthracite);
+            font-size: 1.2rem;
+            letter-spacing: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: rgba(0, 26, 51, 0.1);
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .sky-header-luxe h1 { font-size: 0.9rem; letter-spacing: 12px; }
+            .high-end-claim { font-size: 1.4rem; padding: 0 20px; }
+            .luxe-link-glass { min-width: 260px; padding: 18px 20px; }
+            .final-teaser-sticky { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-background">
+        <picture>
+            <source media="(max-width: 768px)" srcset="mobilnovaswinter.png">
+            <img src="novaswinter.png" alt="Winterwelt">
+        </picture>
+    </div>
+
+    <header class="top-nav">
+        <button class="nav-btn-glass" id="langToggle" onclick="toggleLanguage()">DE | EN</button>
+        <button class="nav-btn-glass" id="mControl" onclick="audioControl()">Sound: AN</button>
+    </header>
+
+    <div class="sky-header-luxe" id="skyHeader">
+        <h1 id="L1">Hallo zurück.</h1>
+        <p id="L2">In Nova's Winterwelt</p>
+    </div>
+
+    <div class="main-wrapper">
+
+        <section class="hero-view">
+            <div class="high-end-claim" id="L3">
+                Spürst du die Kälte? Wir nicht.
+            </div>
+            
+            <div class="discover-bar" id="discoverBar" onclick="window.scrollTo(0, window.innerHeight)">
+                <span id="L6">Entdecken</span>
+                <div class="luxe-arrow"></div>
+            </div>
+        </section>
+
+        <section class="scroll-container">
+            
+            <div class="story-glass" id="revealBox">
+                <p id="L4">
+                    Perfektes Winterwetter: Sonnenschein, -20 Grad, klare Luft. Wir sind topfit. 
+                    Wichtig ist: Wir schützen uns mit fantastischen Möglichkeiten, 
+                    die wir nicht nur für uns, sondern auch für Menschen erstellt haben<span class="heart-icon">❤❤</span>
+                </p>
+            </div>
+
+            <div class="product-luxe-grid">
+                
+                <div class="product-luxe-card" id="card1">
+                    <div class="cs-stamp">Coming Soon</div>
+                    <img src="immune.png" alt="Immun Schutz">
+                    <div class="product-label-deutsch" id="label1">Immun-Schutz</div>
+                </div>
+
+                <div class="product-luxe-card" id="card2">
+                    <div class="cs-stamp">Coming Soon</div>
+                    <img src="energy.png" alt="Energie Schub">
+                    <div class="product-label-deutsch" id="label2">Energie-Schub</div>
+                </div>
+
+            </div>
+
+            <div class="footer-action-zone">
+                
+                <div class="btn-luxe-glass-group">
+                    <a href="index.html" class="luxe-link-glass" id="btn1">⬅ Zurück zur Farm</a>
+                    <a href="https://www.novasfarm.com" class="luxe-link-glass" id="btn2">Unser Schatz</a>
+                    <a href="novassport.html" class="luxe-link-glass" id="btn3">Komm mit... Ab ins Stadion! ➡</a>
+                </div>
+
+                <div class="final-teaser-sticky" id="L5">
+                    Unser Kurztrip in den Schnee endet in Kürze...<br>
+                    Ich hoffe, du hast deine Sportschuhe bereits eingepackt?
+                </div>
+
+            </div>
+
+            <footer>
+                © 2026 Nova's Farm | Winterwelt
+            </footer>
+
+        </section>
+
+    </div>
+
+    <audio id="vAudio" loop src="AUDIO-2026-01-22-22-01-25.mp3"></audio>
+
+    <script>
+        let activeLang = 'de';
+        const dictionary = {
+            de: {
+                t1: "Hallo zurück.",
+                t2: "In Nova's Winterwelt",
+                t3: "Spürst du die Kälte? Wir nicht.",
+                t4: "Perfektes Winterwetter: Sonnenschein, -20 Grad, klare Luft. Wir sind topfit. Wichtig ist: Wir schützen uns mit fantastischen Möglichkeiten, die wir nicht nur für uns, sondern auch für Menschen erstellt haben",
+                t5: "Unser Kurztrip in den Schnee endet in Kürze... Ich hoffe, du hast deine Sportschuhe bereits eingepackt?",
+                t6: "Entdecken",
+                l1: "Immun-Schutz",
+                l2: "Energie-Schub",
+                b1: "⬅ Zurück zur Farm",
+                b2: "Unser Schatz",
+                b3: "Komm mit... Ab ins Stadion! ➡",
+                sOn: "Sound: AN",
+                sOff: "Sound: AUS"
+            },
+            en: {
+                t1: "Welcome back.",
+                t2: "In Nova's Winter World",
+                t3: "Feel the chill? We don't.",
+                t4: "Perfect winter weather: Sunshine, -20 degrees, clear air. We are in top shape. Most importantly: we protect ourselves with fantastic possibilities created not only for us, but for humans too",
+                t5: "Our short trip to the snow ends soon... I hope you've packed your sports shoes yet?",
+                t6: "Explore",
+                l1: "Immune Protection",
+                l2: "Energy Boost",
+                b1: "⬅ Back to the Farm",
+                b2: "Our Treasure",
+                b3: "Come along... To the stadium! ➡",
+                sOn: "Sound: ON",
+                sOff: "Sound: OFF"
+            }
+        };
+
+        function toggleLanguage() {
+            activeLang = (activeLang === 'de') ? 'en' : 'de';
+            document.getElementById('L1').innerText = dictionary[activeLang].t1;
+            document.getElementById('L2').innerText = dictionary[activeLang].t2;
+            document.getElementById('L3').innerText = dictionary[activeLang].t3;
+            document.getElementById('L6').innerText = dictionary[activeLang].t6;
+            document.getElementById('L4').innerHTML = dictionary[activeLang].t4 + '<span class="heart-icon">❤❤</span>';
+            document.getElementById('L5').innerHTML = dictionary[activeLang].t5.replace('...', '...<br>');
+            document.getElementById('label1').innerText = dictionary[activeLang].l1;
+            document.getElementById('label2').innerText = dictionary[activeLang].l2;
+            document.getElementById('btn1').innerText = dictionary[activeLang].b1;
+            document.getElementById('btn2').innerText = dictionary[activeLang].b2;
+            document.getElementById('btn3').innerText = dictionary[activeLang].b3;
+            const track = document.getElementById('vAudio');
+            document.getElementById('mControl').innerText = track.paused ? dictionary[activeLang].sOn : dictionary[activeLang].sOff;
+            document.getElementById('langToggle').innerText = (activeLang === 'de') ? 'DE | EN' : 'EN | DE';
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            const header = document.getElementById('skyHeader');
+            const disc = document.getElementById('discoverBar');
+            const story = document.getElementById('revealBox');
+            const c1 = document.getElementById('card1');
+            const c2 = document.getElementById('card2');
+            const trigger = window.innerHeight * 0.85;
+
+            if (scrollPos > 60) {
+                header.classList.add('hidden');
+                disc.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+                disc.classList.remove('hidden');
+            }
+
+            if (story.getBoundingClientRect().top < trigger) story.classList.add('reveal');
+            if (c1.getBoundingClientRect().top < trigger) c1.classList.add('active');
+            if (c2.getBoundingClientRect().top < trigger) c2.classList.add('active');
+        });
+
+        const track = document.getElementById('vAudio');
+        const btn = document.getElementById('mControl');
+        function audioControl() {
+            if (track.paused) { 
+                track.play(); 
+                btn.innerText = dictionary[activeLang].sOff;
+                btn.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+                btn.style.borderColor = "var(--pure-black)";
+            } else { 
+                track.pause(); 
+                btn.innerText = dictionary[activeLang].sOn;
+                btn.style.backgroundColor = "var(--ice-glass-button)";
+                btn.style.borderColor = "var(--glass-border)";
+            }
+        }
+    </script>
+</body>
+</html>
