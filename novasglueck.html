@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Nova im Glück | Magischer Regenwald</title>
+    
+    <style>
+        :root {
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --rainforest-dark: #0d1a10; /* Dunkleres Regenwald-Olive-Grün */
+            --magic-gold: #f3cc4b; 
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --font-luxe: "Arial", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--pure-black);
+            color: var(--pure-white);
+            font-family: var(--font-luxe);
+            overflow-x: hidden;
+            line-height: 1.8;
+            width: 100%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            width: 100%;
+        }
+
+        /* NAVIGATION */
+        .top-nav {
+            position: fixed;
+            top: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+            z-index: 10010;
+        }
+
+        .nav-btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: var(--pure-white);
+            padding: 12px 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        /* CLAIM */
+        .sky-header-luxe {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .sky-header-luxe h1 {
+            font-size: 2.2rem;
+            color: var(--pure-white); 
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.9);
+        }
+
+        .sky-header-luxe p {
+            font-size: 1.4rem;
+            color: var(--magic-gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-style: italic;
+            text-shadow: 1px 1px 12px rgba(0, 0, 0, 0.9);
+            line-height: 1.3;
+        }
+
+        /* PANORAMA HERO */
+        .hero-panorama {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-panorama img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center bottom;
+            display: block;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.8rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--pure-white);
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+        }
+
+        .arrow-down {
+            width: 15px;
+            height: 15px;
+            border-bottom: 3px solid var(--magic-gold);
+            border-right: 3px solid var(--magic-gold);
+            transform: rotate(45deg);
+            animation: arrowPulse 2.5s infinite;
+        }
+
+        @keyframes arrowPulse {
+            0% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+            50% { transform: rotate(45deg) translateY(8px); opacity: 1; }
+            100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+        }
+
+        /* PERFORMANCE EBENE */
+        .performance-section {
+            position: relative;
+            min-height: 100vh;
+            background: var(--rainforest-dark); 
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            padding: 120px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 50; 
+            box-shadow: 0 -50px 100px rgba(0,0,0,0.9);
+            border-top: 1px solid rgba(243, 204, 75, 0.2);
+        }
+
+        .story-container {
+            max-width: 850px;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .story-container strong {
+            display: block;
+            font-size: 2.1rem;
+            color: var(--magic-gold);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .story-container p {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: var(--pure-white);
+        }
+
+        /* PRODUCT GRID */
+        .product-grid-luxe {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            width: 100%;
+            margin-bottom: 100px;
+        }
+
+        .product-card-luxe {
+            width: 440px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            text-align: center;
+            transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card-luxe:hover {
+            border-color: var(--magic-gold);
+            transform: translateY(-10px);
+            background: rgba(243, 204, 75, 0.05);
+        }
+
+        .cs-stamp {
+            position: absolute;
+            top: 25px;
+            right: -40px;
+            background: rgba(150, 0, 0, 0.8);
+            color: white;
+            padding: 8px 60px;
+            transform: rotate(35deg);
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+
+        .product-card-luxe img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+        }
+
+        .product-card-luxe h4 {
+            font-size: 1.4rem;
+            color: var(--magic-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        /* FOOTER & BUTTONS */
+        .footer-luxe {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 80px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-luxe {
+            padding: 24px 50px;
+            border: 1px solid var(--glass-border);
+            color: var(--pure-white);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 900;
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.05);
+            transition: 0.5s;
+            min-width: 320px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+        }
+
+        .btn-luxe:hover {
+            background: var(--magic-gold);
+            color: var(--pure-black);
+            transform: translateY(-5px);
+            border-color: var(--magic-gold);
+        }
+
+        /* COMMUNITY SECTION */
+        .community-invite {
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .community-invite p {
+            font-size: 1.4rem;
+            color: var(--pure-white);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .community-invite b {
+            display: block;
+            margin-top: 20px;
+            color: var(--magic-gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.6rem;
+            font-weight: 900;
+        }
+
+        footer {
+            padding: 24px 80px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            color: var(--pure-white);
+            font-weight: 800;
+            margin-bottom: 80px;
+        }
+
+        .gold { color: var(--magic-gold); }
+
+        @media (max-width: 768px) {
+            .sky-header-luxe h1 { font-size: 1.6rem; }
+            .sky-header-luxe p { font-size: 1.1rem; }
+            .btn-luxe { width: 100%; }
+            .story-container p { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <button class="nav-btn-glass" onclick="toggleLanguage()">DE | EN</button>
+        <button class="nav-btn-glass" id="mControl" onclick="audioControl()">Sound: AN</button>
+    </header>
+
+    <div class="sky-header-luxe">
+        <h1 id="L1">Nova im Glück</h1>
+        <p id="L2">Wir haben ihn gefunden... Den lange verborgenen Schatz von Wohlbefinden, Gesundheit, Vitalität und Lebensfreude</p>
+    </div>
+
+    <main>
+        <section class="hero-panorama">
+            <picture>
+                <source media="(max-width: 768px)" srcset="mobilnovasglueck.png">
+                <img src="novasglueck.png" alt="Regenwald Panorama">
+            </picture>
+            <div class="scroll-indicator" onclick="window.scrollTo(0, window.innerHeight)">
+                <span id="L6">Entdecken</span>
+                <div class="arrow-down"></div>
+            </div>
+        </section>
+
+        <section class="performance-section" id="content">
+            
+            <div class="story-container">
+                <strong id="S1">Das Herz Brasiliens</strong>
+                <p id="S2">
+                    Angekommen in den ungezähmten Tiefen des Regenwaldes. Hier finden wir die reinste Form der Balance und grüne Energie. Unsere neuen Essenzen direkt aus dem Herzen der Natur. Sie sind die Antwort auf unsere Suche nach Gesundheit und Vitalität.
+                </p>
+            </div>
+
+            <div class="product-grid-luxe">
+                <div class="product-card-luxe">
+                    <div class="cs-stamp">Soon</div>
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="mobilbalance.png">
+                        <img src="balance.png" alt="Core Balance">
+                    </picture>
+                    <h4 id="label1">CORE BALANCE STACK</h4>
+                </div>
+
+                <div class="product-card-luxe">
+                    <div class="cs-stamp">Soon</div>
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="mobilantistress.png">
+                        <img src="antistress.png" alt="Stress & Calm">
+                    </picture>
+                    <h4 id="label2">STRESS & CALM STACK</h4>
+                </div>
+            </div>
+
+            <div class="footer-luxe">
+                <div class="btn-row">
+                    <a href="novasbuero.html" class="btn-luxe" id="btn1">⬅ Zurück in die Skyline</a>
+                    <a href="https://www.novasfarm.com" class="btn-luxe" id="btn2" target="_blank">Essenzen entdecken 😉</a>
+                    <a href="welcomehome.html" class="btn-luxe" id="btn3">Komm nach Hause ➡</a>
+                </div>
+
+                <div class="community-invite">
+                    <p id="C1">Die Reise endet nicht hier. Mit den Schätzen des Regenwaldes im Gepäck kehren wir heim. Wir treffen uns alle wieder auf Nova’s Farm, um gemeinsam das neue Lebensgefühl zu genießen.</p>
+                    <b id="C2">Komm nach Hause. Komm zur Farm.</b>
+                </div>
+                
+                <footer>
+                    <p id="F1">© 2026 <span class="gold" id="F-G">Nova's Farm</span> | <span id="F-B">Regenwald-Welt</span></p>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <audio id="vAudio" loop src="AUDIO-2026-01-22-22-01-25.mp3"></audio>
+
+    <script>
+        let activeLang = 'de';
+        const dictionary = {
+            de: {
+                t1: "Nova im Glück", t2: "Wir haben ihn gefunden... Den lange verborgenen Schatz von Wohlbefinden, Gesundheit, Vitalität und Lebensfreude",
+                t6: "Entdecken",
+                s1: "Das Herz Brasiliens",
+                s2: "Angekommen in den ungezähmten Tiefen des Regenwaldes. Hier finden wir die reinste Form der Balance und grüne Energie. Unsere neuen Essenzen direkt aus dem Herzen der Natur. Sie sind die Antwort auf unsere Suche nach Gesundheit und Vitalität.",
+                l1: "CORE BALANCE STACK", l2: "STRESS & CALM STACK",
+                b1: "⬅ Zurück in die Skyline", b2: "Essenzen entdecken 😉", b3: "Komm nach Hause ➡",
+                c1: "Die Reise endet nicht hier. Mit den Schätzen des Regenwaldes im Gepäck kehren wir heim. Wir treffen uns alle wieder auf Nova’s Farm, um gemeinsam das neue Lebensgefühl zu genießen.",
+                c2: "Komm nach Hause. Komm zur Farm.",
+                fg: "Nova's Farm", fb: "Regenwald-Welt",
+                sOn: "Sound: AN", sOff: "Sound: AUS"
+            },
+            en: {
+                t1: "Nova in Luck", t2: "We have found it... The long-hidden treasure of well-being, health, vitality and joy of life",
+                t6: "Explore",
+                s1: "The Heart of Brazil",
+                s2: "Arrived in the untamed depths of the rainforest. Here we find the purest form of balance and green energy. Our new essences directly from the heart of nature. They are the answer to our search for health and vitality.",
+                l1: "CORE BALANCE STACK", l2: "STRESS & CALM STACK",
+                b1: "⬅ Back to Skyline", b2: "Discover Essences 😉", b3: "Come Home ➡",
+                c1: "The journey doesn't end here. With the treasures of the rainforest in our luggage, we return home. We all meet again at Nova's Farm to enjoy the new attitude to life together.",
+                c2: "Come home. Come to the Farm.",
+                fg: "Nova's Farm", fb: "Rainforest World",
+                sOn: "Sound: ON", sOff: "Sound: OFF"
+            }
+        };
+
+        function toggleLanguage() {
+            activeLang = (activeLang === 'de') ? 'en' : 'de';
+            document.getElementById('L1').innerText = dictionary[activeLang].t1;
+            document.getElementById('L2').innerText = dictionary[activeLang].t2;
+            document.getElementById('L6').innerText = dictionary[activeLang].t6;
+            document.getElementById('S1').innerText = dictionary[activeLang].s1;
+            document.getElementById('S2').innerText = dictionary[activeLang].s2;
+            document.getElementById('label1').innerText = dictionary[activeLang].l1;
+            document.getElementById('label2').innerText = dictionary[activeLang].l2;
+            document.getElementById('btn1').innerText = dictionary[activeLang].b1;
+            document.getElementById('btn2').innerText = dictionary[activeLang].b2;
+            document.getElementById('btn3').innerText = dictionary[activeLang].b3;
+            document.getElementById('C1').innerText = dictionary[activeLang].c1;
+            document.getElementById('C2').innerText = dictionary[activeLang].c2;
+            document.getElementById('F-G').innerText = dictionary[activeLang].fg;
+            document.getElementById('F-B').innerText = dictionary[activeLang].fb;
+            const track = document.getElementById('vAudio');
+            document.getElementById('mControl').innerText = track.paused ? dictionary[activeLang].sOn : dictionary[activeLang].sOff;
+        }
+
+        const track = document.getElementById('vAudio');
+        const btn = document.getElementById('mControl');
+        function audioControl() {
+            if (track.paused) { track.play(); } else { track.pause(); }
+            btn.innerText = track.paused ? dictionary[activeLang].sOn : dictionary[activeLang].sOff;
+        }
+    </script>
+</body>
+</html>
