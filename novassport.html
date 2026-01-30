@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Action-Performance | Nova's Sportwelt</title>
+    
+    <style>
+        :root {
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --tartan-red: #b24d3d;
+            --deep-coming-soon: #7d1a1a;
+            --electric-blue: #00d4ff;
+            --luxury-gold: #d4af37;
+            --empire-gold: #8e6d13;
+            --midnight-text: #1a2a3a;
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --font-luxe: "Arial", "Helvetica", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--pure-black);
+            color: var(--pure-white);
+            font-family: var(--font-luxe);
+            overflow-x: hidden;
+            line-height: 1.8;
+            width: 100%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            width: 100%;
+        }
+
+        /* NAVIGATION */
+        .top-nav {
+            position: fixed;
+            top: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+            z-index: 10010;
+        }
+
+        .nav-btn-glass {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--glass-border);
+            color: var(--pure-white);
+            padding: 12px 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        /* ÜBERSCHRIFT: ABSOLUTE (DESKTOP) */
+        .sky-header-luxe {
+            position: absolute; 
+            top: 100px;
+            left: 50px; 
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 1.5s forwards cubic-bezier(0.23, 1, 0.32, 1) 0.5s;
+        }
+
+        .sky-header-luxe p {
+            font-size: 2.2rem;
+            color: var(--electric-blue); 
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 1.1;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 1);
+        }
+
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* PANORAMA HERO */
+        .hero-panorama {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-panorama img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.8rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--pure-white);
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .arrow-down {
+            width: 15px;
+            height: 15px;
+            border-bottom: 2px solid var(--electric-blue);
+            border-right: 2px solid var(--electric-blue);
+            transform: rotate(45deg);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(45deg) translateY(0); opacity: 0.3; }
+            50% { transform: rotate(45deg) translateY(10px); opacity: 1; }
+            100% { transform: rotate(45deg) translateY(0); opacity: 0.3; }
+        }
+
+        /* PERFORMANCE EBENE */
+        .performance-section {
+            position: relative;
+            min-height: 100vh;
+            background: rgba(5, 15, 25, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            padding: 120px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 50; 
+            box-shadow: 0 -50px 100px rgba(0,0,0,0.9);
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .story-container {
+            max-width: 850px;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .story-container strong {
+            display: block;
+            font-size: 2.2rem;
+            color: var(--electric-blue);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .story-container p {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: var(--pure-white);
+        }
+
+        .heart-icons {
+            color: #ff4d4d;
+            font-size: 1.8rem;
+            margin-top: 20px;
+            font-weight: 900;
+        }
+
+        /* PRODUCT GRID */
+        .product-grid-luxe {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            width: 100%;
+            margin-bottom: 80px;
+        }
+
+        .product-card-luxe {
+            width: 420px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            text-align: center;
+            transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card-luxe:hover {
+            border-color: var(--electric-blue);
+            transform: translateY(-10px);
+            background: rgba(0, 212, 255, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        /* COMING SOON STAMP */
+        .cs-stamp {
+            position: absolute;
+            top: 25px;
+            right: -45px;
+            background: var(--deep-coming-soon);
+            color: white;
+            padding: 8px 65px;
+            transform: rotate(35deg);
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .product-card-luxe img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
+        }
+
+        .product-card-luxe h4 {
+            font-size: 1.5rem;
+            color: var(--pure-white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
+            font-style: italic;
+        }
+
+        /* FINAL TEASER BLOCK */
+        .final-teaser-block {
+            text-align: center;
+            max-width: 900px;
+            margin-top: 50px;
+            margin-bottom: 80px;
+        }
+
+        .teaser-title {
+            font-size: 2.2rem;
+            color: var(--electric-blue);
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .teaser-description {
+            font-size: 1.5rem;
+            color: var(--pure-white);
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* FOOTER BUTTONS */
+        .footer-luxe {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 100px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-luxe {
+            padding: 22px 45px;
+            border: 1px solid var(--glass-border);
+            color: var(--pure-white);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: bold;
+            font-style: italic;
+            background: rgba(255,255,255,0.08);
+            transition: 0.4s;
+            min-width: 300px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-luxe:hover {
+            background: var(--pure-white);
+            color: var(--pure-black);
+            border-color: var(--pure-white);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+        }
+
+        footer {
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: var(--pure-white);
+            font-weight: 800;
+        }
+
+        .farm-gold { color: var(--luxury-gold); }
+        .sport-blue { color: var(--electric-blue); }
+
+        /* MOBILE OPTIMIERUNG */
+        @media (max-width: 768px) {
+            .top-nav { padding: 0 20px; top: 15px; }
+            .nav-btn-glass { padding: 8px 15px; font-size: 0.7rem; }
+            
+            /* ÜBERSCHRIFT MOBIL KOMPLETT RAUS */
+            .sky-header-luxe { display: none; }
+            
+            /* FINALE KORREKTUR: ZEPPELIN WEITER NACH LINKS FÜR KOMPLETTE FAHNE */
+            .hero-panorama img {
+                object-position: 92% center;
+            }
+
+            .scroll-indicator { bottom: 100px; }
+            .product-card-luxe { width: 90%; }
+            .btn-luxe { width: 100%; }
+            .performance-section { padding: 80px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <button class="nav-btn-glass" onclick="toggleLanguage()">DE | EN</button>
+        <button class="nav-btn-glass" id="mControl" onclick="audioControl()">Sound: AN</button>
+    </header>
+
+    <div class="sky-header-luxe">
+        <p id="L2">Willkommen in Nova's Sportwelt</p>
+    </div>
+
+    <main>
+        <section class="hero-panorama">
+            <picture>
+                <source media="(max-width: 768px)" srcset="mobilnovassport.png">
+                <img src="novassport.png" alt="Stadion Panorama">
+            </picture>
+
+            <div class="scroll-indicator" onclick="scrollToContent()">
+                <span id="L6">Entdecken</span>
+                <div class="arrow-down"></div>
+            </div>
+        </section>
+
+        <section class="performance-section" id="content">
+            
+            <div class="story-container">
+                <strong id="S1">Dein Körper ist dein Tempel.</strong>
+                <p id="S2">
+                    Wir liefern dir den Treibstoff, den du für deine Höchstleistungen brauchst. Rein, ehrlich und direkt von der Farm.
+                </p>
+                <div class="heart-icons">❤️❤️</div>
+            </div>
+
+            <div class="product-grid-luxe">
+                <div class="product-card-luxe">
+                    <div class="cs-stamp">Coming Soon</div>
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="mobilcardio.png">
+                        <img src="cardio.png" alt="Cardio">
+                    </picture>
+                    <h4 id="label1">Dein Herzschlag, dein Rhythmus.</h4>
+                </div>
+
+                <div class="product-card-luxe">
+                    <div class="cs-stamp">Coming Soon</div>
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="mobilmotivation.png">
+                        <img src="motivation.png" alt="Motivation">
+                    </picture>
+                    <h4 id="label2">Maximale Kraft für dein Ziel.</h4>
+                </div>
+            </div>
+
+            <div class="final-teaser-block">
+                <div class="teaser-title" id="H1">Zielgerade erreicht – Pokal in der Tasche! 🏆</div>
+                <div class="teaser-description" id="H2">
+                    Der Sporttag war ein Erfolg. Jetzt wird entspannt. <br>
+                    Ab in den Urlaub! Badeschlappen bereit? <br>
+                    Taucherbrille eingesteckt? Los geht's!
+                </div>
+            </div>
+
+            <div class="footer-luxe">
+                <div class="btn-row">
+                    <a href="novaswinterclean.html" class="btn-luxe" id="btn1">⬅ Zurück in den Schnee</a>
+                    <a href="https://www.novasfarm.com" class="btn-luxe" id="btn2" target="_blank">Zur Tankstelle 😉</a>
+                    <a href="novasurlaub.html" class="btn-luxe" id="btn3">Hier gehts zum Strand :) ➡</a>
+                </div>
+                
+                <footer>
+                    <p id="F1">© 2026 <span class="farm-gold">Nova's Farm</span> | <span class="sport-blue">Sportwelt</span></p>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <audio id="vAudio" loop src="AUDIO-2026-01-22-22-01-25.mp3"></audio>
+
+    <script>
+        let activeLang = 'de';
+        const dictionary = {
+            de: {
+                t2: "Willkommen in Nova's Sportwelt",
+                t6: "Entdecken",
+                s1: "Dein Körper ist dein Tempel.",
+                s2: "Wir liefern dir den Treibstoff, den du für deine Höchstleistungen brauchst. Rein, ehrlich und direkt von der Farm.",
+                l1: "Dein Herzschlag, dein Rhythmus.", l2: "Maximale Kraft für dein Ziel.",
+                b1: "⬅ Zurück in den Schnee", b2: "Zur Tankstelle 😉", b3: "Hier gehts zum Strand :) ➡",
+                h1: "Zielgerade erreicht – Pokal in der Tasche! 🏆",
+                h2: "Der Sporttag war ein Erfolg. Jetzt wird entspannt. <br>Ab in den Urlaub! Badeschlappen bereit? <br>Taucherbrille eingesteckt? Los geht's!",
+                f1: "© 2026 <span class='farm-gold'>Nova's Farm</span> | <span class='sport-blue'>Sportwelt</span>",
+                sOn: "Sound: AN", sOff: "Sound: AUS"
+            },
+            en: {
+                t2: "Welcome to Nova's Sport World",
+                t6: "Explore",
+                s1: "Your body is your temple.",
+                s2: "We provide the fuel you need for your peak performance. Pure, honest, and straight from the farm.",
+                l1: "Your heartbeat, your rhythm.", l2: "Maximale Kraft für dein Ziel.",
+                b1: "⬅ Back to the snow", b2: "To the Gas Station 😉", b3: "Off to the beach :) ➡",
+                h1: "Finish line reached – Trophy in the pocket! 🏆",
+                h2: "Sports day was a success. Time to relax. <br>Off to vacation! Flip-flops ready? <br>Diving goggles packed? Let's go!",
+                f1: "© 2026 <span class='farm-gold'>Nova's Farm</span> | <span class='sport-blue'>Sport World</span>",
+                sOn: "Sound: ON", sOff: "Sound: OFF"
+            }
+        };
+
+        function scrollToContent() {
+            const content = document.getElementById('content');
+            const offset = 40; 
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = content.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleLanguage() {
+            activeLang = (activeLang === 'de') ? 'en' : 'de';
+            document.getElementById('L2').innerText = dictionary[activeLang].t2;
+            document.getElementById('L6').innerText = dictionary[activeLang].t6;
+            document.getElementById('S1').innerText = dictionary[activeLang].s1;
+            document.getElementById('S2').innerText = dictionary[activeLang].s2;
+            document.getElementById('label1').innerText = dictionary[activeLang].l1;
+            document.getElementById('label2').innerText = dictionary[activeLang].l2;
+            document.getElementById('btn1').innerText = dictionary[activeLang].b1;
+            document.getElementById('btn2').innerText = dictionary[activeLang].b2;
+            document.getElementById('btn3').innerText = dictionary[activeLang].b3;
+            document.getElementById('H1').innerText = dictionary[activeLang].h1;
+            document.getElementById('H2').innerHTML = dictionary[activeLang].h2;
+            document.getElementById('F1').innerHTML = dictionary[activeLang].f1;
+            const track = document.getElementById('vAudio');
+            document.getElementById('mControl').innerText = track.paused ? dictionary[activeLang].sOn : dictionary[activeLang].sOff;
+        }
+
+        const track = document.getElementById('vAudio');
+        const btn = document.getElementById('mControl');
+
+        function audioControl() {
+            if (track.paused) { track.play(); } else { track.pause(); }
+            btn.innerText = track.paused ? dictionary[activeLang].sOn : dictionary[activeLang].sOff;
+        }
+    </script>
+</body>
+</html>
