@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Nova's Urlaubswelt | Deep Ocean Performance</title>
+
+    <link rel="icon" type="image/png" href="https://magicclick.live/logomagicclick.png?v=20">
+    <link rel="apple-touch-icon" href="https://magicclick.live/logomagicclick.png?v=20">
+    <link rel="shortcut icon" href="https://magicclick.live/logomagicclick.png?v=20">
+    
+    <meta property="og:site_name" content="Magic Click">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://magicclick.live/novasurlaub.html">
+    <meta property="og:title" content="Nova's Urlaubswelt | Deep Ocean Performance">
+    <meta property="og:description" content="Dein Strandkörper wartet bereits. Entdecke natürliche Effektivität in Nova's Urlaubswelt. ☀🌊🥥">
+    <meta property="og:image" content="https://magicclick.live/logomagicclick.png?v=20">
+    <meta property="og:image:secure_url" content="https://magicclick.live/logomagicclick.png?v=20">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    
+    <style>
+        :root {
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --signal-orange: #FF7F00; 
+            --ocean-blue: #005f8d;
+            --midnight-ocean: #001a2c;
+            --luxury-gold: #d4af37;
+            --deep-coming-soon: #7d1a1a;
+            --brainstorm-red: #b24d3d;
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --font-luxe: "Arial", "Helvetica", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--pure-black);
+            color: var(--pure-white);
+            font-family: var(--font-luxe);
+            overflow-x: hidden;
+            line-height: 1.8;
+            width: 100%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            width: 100%;
+        }
+
+        /* NAVIGATION */
+        .top-nav {
+            position: fixed;
+            top: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+            z-index: 10010;
+        }
+
+        .nav-btn-glass {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--glass-border);
+            color: var(--pure-white);
+            padding: 12px 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        /* CLAIM */
+        .sky-header-luxe {
+            position: absolute;
+            top: 100px;
+            left: 50px; 
+            z-index: 5;
+            pointer-events: none;
+            text-align: left;
+        }
+
+        .sky-header-luxe h1 {
+            font-size: 1.7rem;
+            color: var(--signal-orange); 
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .sky-header-luxe p {
+            font-size: 2.2rem;
+            color: var(--ocean-blue);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-style: italic;
+            text-shadow: 1px 1px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* PANORAMA HERO */
+        .hero-panorama {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-panorama img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+        }
+
+        /* SCROLL INDICATOR - FARBE AUF SCHWARZ FÜR KONTRAST */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.9rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            color: var(--pure-black); /* Schwarz für den Sand-Kontrast */
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .arrow-down {
+            width: 15px;
+            height: 15px;
+            border-bottom: 3px solid var(--signal-orange);
+            border-right: 3px solid var(--signal-orange);
+            transform: rotate(45deg);
+            animation: arrowPulse 2.5s infinite;
+        }
+
+        @keyframes arrowPulse {
+            0% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+            50% { transform: rotate(45deg) translateY(8px); opacity: 1; }
+            100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+        }
+
+        /* PERFORMANCE EBENE */
+        .performance-section {
+            position: relative;
+            min-height: 100vh;
+            background: rgba(0, 26, 44, 0.92); 
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            padding: 120px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 50; 
+            box-shadow: 0 -50px 100px rgba(0,0,0,0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .story-container {
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .story-container strong {
+            display: block;
+            font-size: 2.1rem;
+            color: var(--signal-orange);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .story-container p {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: var(--pure-white);
+        }
+
+        .beach-icons {
+            font-size: 2.2rem;
+            margin-top: 25px;
+        }
+
+        /* PRODUCT GRID */
+        .product-grid-luxe {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            width: 100%;
+            margin-bottom: 80px;
+        }
+
+        .product-card-luxe {
+            width: 440px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            text-align: center;
+            transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card-luxe:hover {
+            border-color: var(--signal-orange);
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cs-stamp {
+            position: absolute;
+            top: 25px;
+            right: -45px;
+            background: var(--deep-coming-soon);
+            color: white;
+            padding: 8px 65px;
+            transform: rotate(35deg);
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .product-card-luxe img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        }
+
+        .product-card-luxe h4 {
+            font-size: 1.4rem;
+            color: var(--signal-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
+            font-style: italic;
+        }
+
+        /* TEASER BLOCK */
+        .final-teaser-block {
+            text-align: center;
+            max-width: 850px;
+            margin-bottom: 80px;
+            color: var(--signal-orange);
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.6;
+            text-shadow: 1px 1px 10px rgba(0,0,0,0.4);
+        }
+
+        /* FOOTER BUTTONS */
+        .footer-luxe {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 100px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-luxe {
+            padding: 24px 50px;
+            border: 1px solid var(--glass-border);
+            color: var(--pure-white);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 900;
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.5s;
+            min-width: 320px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+        }
+
+        .btn-luxe:hover {
+            background: var(--pure-white);
+            color: var(--midnight-ocean);
+            border-color: var(--pure-white);
+            transform: translateY(-5px);
+        }
+
+        .btn-luxe.camp-red {
+            color: var(--brainstorm-red);
+            border-color: rgba(178, 77, 61, 0.3);
+        }
+
+        .btn-luxe.camp-red:hover {
+            background: rgba(178, 77, 61, 0.5); 
+            color: var(--pure-white); 
+            border-color: var(--brainstorm-red);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(178, 77, 61, 0.3);
+        }
+
+        footer {
+            padding: 24px 80px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            color: var(--pure-white);
+            font-weight: 800;
+            margin-bottom: 80px;
+        }
+
+        .farm-gold { color: var(--signal-orange); }
+        .holiday-blue { color: var(--ocean-blue); }
+
+        @media (max-width: 768px) {
+            .sky-header-luxe { left: 30px; top: 90px; }
+            .sky-header-luxe h1 { font-size: 1.3rem; }
+            .sky-header-luxe p { font-size: 1.6rem; }
+            
+            /* BUTTON HÖHER SETZEN MOBIL */
+            .scroll-indicator { bottom: 100px; }
+            
+            .product-card-luxe { width: 90%; }
+            .btn-luxe { width: 100%; }
+            .performance-section { padding: 80px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <button class="nav-btn-glass" onclick="toggleLanguage()">DE | EN</button>
+        <button class="nav-btn-glass" id="mControl" onclick="audioControl()">Sound: AN</button>
+    </header>
+
+    <div class="sky-header-luxe">
+        <h1 id="L1">Endlich am Strand.</h1>
+        <p id="L2">Nova's Urlaubswelt</p>
+    </div>
+
+    <main>
+        <section class="hero-panorama">
+            <picture>
+                <source media="(max-width: 768px)" srcset="mobilnovasurlaub.png">
+                <img src="novasurlaub.png" alt="Urlaub Panorama">
+            </picture>
+
+            <div class="scroll-indicator" onclick="scrollToContent()">
+                <span id="L6">Entdecken</span>
+                <div class="arrow-down"></div>
+            </div>
+        </section>
+
+        <section class="performance-section" id="content">
+            
+            <div class="story-container">
+                <strong id="S1">Dein Strandkörper wartet bereits.</strong>
+                <p id="S2">
+                    Egal ob Bikinifigur oder pure Leichtigkeit – mit <strong>LOST PLACES</strong> unterstützen wir dich dabei, überschüssigen Ballast abzuwerfen. Natürlich, effektiv und passend zu deinem Lifestyle.
+                </p>
+                <div class="beach-icons">☀🌊🥥</div>
+            </div>
+
+            <div class="product-grid-luxe">
+                <div class="product-card-luxe">
+                    <div class="cs-stamp">Coming Soon</div>
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="mobilbase.png">
+                        <img src="base.png" alt="Base">
+                    </picture>
+                    <h4 id="label1">DEIN TÄGLICHES UPGRADE</h4>
+                </div>
+
+                <div class="product-card-luxe">
+                    <div class="cs-stamp">Coming Soon</div>
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="mobilmobility.png">
+                        <img src="mobility.png" alt="Mobility">
+                    </picture>
+                    <h4 id="label2">DEIN SOMMER-GEHEIMNIS</h4>
+                </div>
+            </div>
+
+            <div class="final-teaser-block" id="H-Teaser">
+                Die erholsamen Tage am Strand neigen sich dem Ende zu... Ein wichtiger Business-Termin ruft uns zurück in unsere Zentrale. Komm mit und schau dir an, wie unsere Skyline über dem Büro erwacht!
+            </div>
+
+            <div class="footer-luxe">
+                <div class="btn-row">
+                    <a href="novassport.html" class="btn-luxe" id="btn1">⬅ Zurück ins Stadion</a>
+                    <a href="https://www.novasfarm.com" class="btn-luxe" id="btn2" target="_blank">Traum-Beach-Body 😉</a>
+                    <a href="novasbuero.html" class="btn-luxe camp-red" id="btn3">Das 3 Tage Brainstorm Camp ruft ➡</a>
+                </div>
+                
+                <footer>
+                    <p id="F1">© 2026 <span class="farm-gold" id="F-G">Nova's Farm</span> | <span class="holiday-blue" id="F-B">Urlaubswelt</span></p>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <audio id="vAudio" loop src="AUDIO-2026-01-22-22-01-25.mp3"></audio>
+
+    <script>
+        let activeLang = 'de';
+        const dictionary = {
+            de: {
+                t1: "Endlich am Strand.", t2: "Nova's Urlaubswelt",
+                t6: "Entdecken",
+                s1: "Dein Strandkörper wartet bereits.",
+                s2: "Egal ob Bikinifigur oder pure Leichtigkeit – mit LOST PLACES unterstützen wir dich dabei, überschüssigen Ballast abzuwerfen. Natürlich, effektiv und passend zu deinem Lifestyle.",
+                l1: "DEIN TÄGLICHES UPGRADE", l2: "DEIN SOMMER-GEHEIMNIS",
+                teaser: "Die erholsamen Tage am Strand neigen sich dem Ende zu... Ein wichtiger Business-Termin ruft uns zurück in unsere Zentrale. Komm mit und schau dir an, wie unsere Skyline über dem Büro erwacht!",
+                b1: "⬅ Zurück ins Stadion", b2: "Traum-Beach-Body 😉", b3: "Das 3 Tage Brainstorm Camp ruft ➡",
+                fg: "Nova's Farm", fb: "Urlaubswelt",
+                sOn: "Sound: AN", sOff: "Sound: AUS"
+            },
+            en: {
+                t1: "Finally at the beach.", t2: "Nova's Vacation World",
+                t6: "Explore",
+                s1: "Your body is your temple.",
+                s2: "Whether it's a bikini figure or pure lightness – with LOST PLACES, we help you shed excess weight. Naturally, effectively and fitting your lifestyle.",
+                l1: "YOUR DAILY UPGRADE", l2: "YOUR SUMMER SECRET",
+                teaser: "The relaxing days at the beach are coming to an end... An important business appointment calls us back to our headquarters. Come along and see how our skyline awakens above the office!",
+                b1: "⬅ Back to stadium", b2: "Beach-Body 😉", b3: "3-Day Brainstorm Camp calling ➡",
+                fg: "Nova's Farm", fb: "Vacation World",
+                sOn: "Sound: ON", sOff: "Sound: OFF"
+            }
+        };
+
+        function scrollToContent() {
+            const content = document.getElementById('content');
+            const offset = 40; 
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = content.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleLanguage() {
+            activeLang = (activeLang === 'de') ? 'en' : 'de';
+            document.getElementById('L1').innerText = dictionary[activeLang].t1;
+            document.getElementById('L2').innerText = dictionary[activeLang].t2;
+            document.getElementById('L6').innerText = dictionary[activeLang].t6;
+            document.getElementById('S1').innerText = dictionary[activeLang].s1;
+            document.getElementById('S2').innerHTML = dictionary[activeLang].s2;
+            document.getElementById('label1').innerText = dictionary[activeLang].l1;
+            document.getElementById('label2').innerText = dictionary[activeLang].l2;
+            document.getElementById('H-Teaser').innerText = dictionary[activeLang].teaser;
+            document.getElementById('btn1').innerText = dictionary[activeLang].b1;
+            document.getElementById('btn2').innerText = dictionary[activeLang].b2;
+            document.getElementById('btn3').innerText = dictionary[activeLang].b3;
+            document.getElementById('F-G').innerText = dictionary[activeLang].fg;
+            document.getElementById('F-B').innerText = dictionary[activeLang].fb;
+            const track = document.getElementById('vAudio');
+            document.getElementById('mControl').innerText = track.paused ? dictionary[activeLang].sOn : dictionary[activeLang].sOff;
+        }
+
+        const track = document.getElementById('vAudio');
+        const btn = document.getElementById('mControl');
+
+        function audioControl() {
+            if (track.paused) { track.play(); } else { track.pause(); }
+            btn.innerText = track.paused ? dictionary[activeLang].sOn : dictionary[activeLang].sOff;
+        }
+    </script>
+</body>
+</html>
